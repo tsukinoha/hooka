@@ -1,10 +1,7 @@
-module github.com/elfincafe/hooka
+module github.com/tsukinoha/hooka
 
-go 1.20.0
+go 1.25.0
 
-require (
-	github.com/elfincafe/hooka/mock v0.0.0-00010101000000-000000000000
-	github.com/golang/mock v1.6.0
-)
+retract [v0.0.1, v0.2.9]
 
-replace github.com/elfincafe/hooka/mock => ./mock
+require github.com/golang/mock v1.6.0

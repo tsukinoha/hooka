@@ -1,3 +1,3 @@
-module hooka/adaptive_card
+module github.com/tsukinoha/hooka/adaptive_card
 
-go 1.20.0
+go 1.25.0
