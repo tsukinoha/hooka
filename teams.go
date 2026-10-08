@@ -1,10 +1,11 @@
 package hooka
 
 import (
+	"context"
 	"encoding/json"
-	"errors"
-	"hooka/adaptive_card"
 	"net/url"
+
+	"github.com/tsukinoha/hooka/adaptive_card"
 )
 
 type (
@@ -19,7 +20,8 @@ type (
 )
 
 func NewTeams(uri string) (*Teams, error) {
-	u, err := parseUri(uri, "azure.com")
+	// Workflows URLs are issued under logic.azure.com (legacy) or powerplatform.com.
+	u, err := parseUri(uri, "logic.azure.com", "powerplatform.com")
 	if err != nil {
 		return nil, err
 	}
@@ -34,14 +36,12 @@ func NewTeams(uri string) (*Teams, error) {
 }
 
 func (t *Teams) Send(data []byte) error {
-	res, err := send(data, t.uri)
-	if err != nil {
-		return err
-	}
-	if res.StatusCode >= 400 {
-		return errors.New("Error")
-	}
-	return nil
+	return t.SendContext(context.Background(), data)
+}
+
+// SendContext is like Send but the request is canceled when ctx is done.
+func (t *Teams) SendContext(ctx context.Context, data []byte) error {
+	return send(ctx, data, t.uri)
 }
 
 func (t *Teams) MarshalJSON() ([]byte, error) {

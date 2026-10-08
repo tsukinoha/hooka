@@ -145,7 +145,7 @@ func TestAdaptiveCardContainerSetStyle(t *testing.T) {
 	}
 }
 
-func TestAdaptiveCardContainerSetSparator(t *testing.T) {
+func TestAdaptiveCardContainerSetSeparator(t *testing.T) {
 	cases := []struct {
 		separator bool
 	}{

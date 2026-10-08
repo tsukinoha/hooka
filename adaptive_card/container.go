@@ -1,7 +1,5 @@
 package adaptive_card
 
-import "strings"
-
 type (
 	Container struct {
 		version   float64
@@ -47,15 +45,7 @@ func (c *Container) Append(item Element) {
 }
 
 func (c *Container) SetStyle(style string) {
-	style = strings.ToLower(style)
-	switch style {
-	case "default":
-		c.Style = style
-	case "emphasis":
-		c.Style = style
-	default:
-		c.Style = ""
-	}
+	c.Style = normalize(style, containerStyleValues)
 }
 
 func (c *Container) SetSeparator(separator bool) {
@@ -63,23 +53,5 @@ func (c *Container) SetSeparator(separator bool) {
 }
 
 func (c *Container) SetSpacing(spacing string) {
-	spacing = strings.ToLower(spacing)
-	switch spacing {
-	case "default":
-		c.Spacing = spacing
-	case "none":
-		c.Spacing = spacing
-	case "small":
-		c.Spacing = spacing
-	case "medium":
-		c.Spacing = spacing
-	case "large":
-		c.Spacing = spacing
-	case "extralarge":
-		c.Spacing = "extraLarge"
-	case "padding":
-		c.Spacing = spacing
-	default:
-		c.Spacing = ""
-	}
+	c.Spacing = normalize(spacing, spacingValues)
 }

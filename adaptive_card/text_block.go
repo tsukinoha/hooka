@@ -1,9 +1,5 @@
 package adaptive_card
 
-import (
-	"strings"
-)
-
 type (
 	TextBlock struct {
 		version             float64
@@ -54,25 +50,7 @@ func (tb *TextBlock) SetId(id string) {
 }
 
 func (tb *TextBlock) SetSpacing(spacing string) {
-	spacing = strings.ToLower(spacing)
-	switch spacing {
-	case "default":
-		tb.Spacing = spacing
-	case "none":
-		tb.Spacing = spacing
-	case "small":
-		tb.Spacing = spacing
-	case "medium":
-		tb.Spacing = spacing
-	case "large":
-		tb.Spacing = spacing
-	case "extralarge":
-		tb.Spacing = "extraLarge"
-	case "padding":
-		tb.Spacing = spacing
-	default:
-		tb.Spacing = ""
-	}
+	tb.Spacing = normalize(spacing, spacingValues)
 }
 
 func (tb *TextBlock) SetSeparator(separator bool) {
@@ -80,17 +58,7 @@ func (tb *TextBlock) SetSeparator(separator bool) {
 }
 
 func (tb *TextBlock) SetHorizontalAlignment(horizontalAlignment string) {
-	horizontalAlignment = strings.ToLower(horizontalAlignment)
-	switch horizontalAlignment {
-	case "left":
-		tb.HorizontalAlignment = horizontalAlignment
-	case "center":
-		tb.HorizontalAlignment = horizontalAlignment
-	case "right":
-		tb.HorizontalAlignment = horizontalAlignment
-	default:
-		tb.HorizontalAlignment = ""
-	}
+	tb.HorizontalAlignment = normalize(horizontalAlignment, horizontalAlignmentValues)
 }
 
 func (tb *TextBlock) SetWrap(wrap bool) {
@@ -105,57 +73,15 @@ func (tb *TextBlock) SetMaxLines(maxLines int) {
 }
 
 func (tb *TextBlock) SetSize(size string) {
-	size = strings.ToLower(size)
-	switch size {
-	case "default":
-		tb.Size = size
-	case "small":
-		tb.Size = size
-	case "medium":
-		tb.Size = size
-	case "large":
-		tb.Size = size
-	case "extralarge":
-		tb.Size = "extraLarge"
-	default:
-		tb.Size = ""
-	}
+	tb.Size = normalize(size, textSizeValues)
 }
 
 func (tb *TextBlock) SetWeight(weight string) {
-	weight = strings.ToLower(weight)
-	switch weight {
-	case "default":
-		tb.Weight = weight
-	case "lighter":
-		tb.Weight = weight
-	case "bolder":
-		tb.Weight = weight
-	default:
-		tb.Weight = ""
-	}
+	tb.Weight = normalize(weight, textWeightValues)
 }
 
 func (tb *TextBlock) SetColor(color string) {
-	color = strings.ToLower(color)
-	switch color {
-	case "default":
-		tb.Color = color
-	case "dark":
-		tb.Color = color
-	case "light":
-		tb.Color = color
-	case "accent":
-		tb.Color = color
-	case "good":
-		tb.Color = color
-	case "warning":
-		tb.Color = color
-	case "attention":
-		tb.Color = color
-	default:
-		tb.Color = ""
-	}
+	tb.Color = normalize(color, textColorValues)
 }
 
 func (tb *TextBlock) SetSubtle(subtle bool) {

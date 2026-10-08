@@ -155,7 +155,7 @@ func TestAdaptiveCardColumnSetSpacing(t *testing.T) {
 	}
 }
 
-func TestAdaptiveCardColumnSetSparator(t *testing.T) {
+func TestAdaptiveCardColumnSetSeparator(t *testing.T) {
 	cases := []struct {
 		separator bool
 	}{
@@ -210,6 +210,8 @@ func TestAdaptiveCardColumnSetWidth(t *testing.T) {
 		{"0", "0"},
 		{"-1", "0"},
 		{"1", "1"},
+		{"100", "100"},
+		{"Auto", "auto"},
 	}
 	for i, c := range cases {
 		cl := NewColumn()

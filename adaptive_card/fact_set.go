@@ -1,13 +1,11 @@
 package adaptive_card
 
-import "strings"
-
 type (
 	FactSet struct {
 		version   float64
 		Type      string  `json:"type"`
 		Id        string  `json:"id,omitempty"`
-		Facts     []*Fact `json:"facts,omitempty"`
+		Facts     []*Fact `json:"facts"`
 		Separator bool    `json:"separator,omitempty"`
 		Spacing   string  `json:"spacing,omitempty"`
 	}
@@ -46,23 +44,5 @@ func (fs *FactSet) SetSeparator(separator bool) {
 }
 
 func (fs *FactSet) SetSpacing(spacing string) {
-	spacing = strings.ToLower(spacing)
-	switch spacing {
-	case "default":
-		fs.Spacing = spacing
-	case "none":
-		fs.Spacing = spacing
-	case "small":
-		fs.Spacing = spacing
-	case "medium":
-		fs.Spacing = spacing
-	case "large":
-		fs.Spacing = spacing
-	case "extralarge":
-		fs.Spacing = "extraLarge"
-	case "padding":
-		fs.Spacing = spacing
-	default:
-		fs.Spacing = ""
-	}
+	fs.Spacing = normalize(spacing, spacingValues)
 }

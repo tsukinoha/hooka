@@ -2,7 +2,7 @@ package adaptive_card
 
 import (
 	"encoding/json"
-	"fmt"
+	"strconv"
 )
 
 type (
@@ -65,7 +65,12 @@ func (ac *AdaptiveCard) SetLang(lang string) {
 }
 
 func (ac *AdaptiveCard) Marshal() ([]byte, error) {
-	fmt.Println(fmt.Sprintf("%.2f", ac.Content.Version))
-	ac.Content.Ver = fmt.Sprintf("%.2f", ac.Content.Version)
 	return json.Marshal(ac)
+}
+
+// MarshalJSON writes "version" from Version so that it is correct however the card is marshaled.
+func (acc AdaptiveCardContent) MarshalJSON() ([]byte, error) {
+	type content AdaptiveCardContent
+	acc.Ver = strconv.FormatFloat(acc.Version, 'f', 1, 64)
+	return json.Marshal(content(acc))
 }
