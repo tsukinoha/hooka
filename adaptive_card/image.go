@@ -1,7 +1,5 @@
 package adaptive_card
 
-import "strings"
-
 type (
 	Image struct {
 		version             float64
@@ -54,67 +52,17 @@ func (i *Image) SetSeparator(separator bool) {
 }
 
 func (i *Image) SetHorizontalAlignment(horizontalAlignment string) {
-	horizontalAlignment = strings.ToLower(horizontalAlignment)
-	switch horizontalAlignment {
-	case "left":
-		i.HorizontalAlignment = horizontalAlignment
-	case "center":
-		i.HorizontalAlignment = horizontalAlignment
-	case "right":
-		i.HorizontalAlignment = horizontalAlignment
-	default:
-		i.HorizontalAlignment = ""
-	}
+	i.HorizontalAlignment = normalize(horizontalAlignment, horizontalAlignmentValues)
 }
 
 func (i *Image) SetSize(size string) {
-	size = strings.ToLower(size)
-	switch size {
-	case "auto":
-		i.Size = size
-	case "stretch":
-		i.Size = size
-	case "small":
-		i.Size = size
-	case "medium":
-		i.Size = size
-	case "large":
-		i.Size = size
-	default:
-		i.Size = ""
-	}
+	i.Size = normalize(size, imageSizeValues)
 }
 
 func (i *Image) SetStyle(style string) {
-	style = strings.ToLower(style)
-	switch style {
-	case "default":
-		i.Style = "default"
-	case "person":
-		i.Style = "person"
-	default:
-		i.Style = ""
-	}
+	i.Style = normalize(style, imageStyleValues)
 }
 
 func (i *Image) SetSpacing(spacing string) {
-	spacing = strings.ToLower(spacing)
-	switch spacing {
-	case "default":
-		i.Spacing = spacing
-	case "none":
-		i.Spacing = spacing
-	case "small":
-		i.Spacing = spacing
-	case "medium":
-		i.Spacing = spacing
-	case "large":
-		i.Spacing = spacing
-	case "extralarge":
-		i.Spacing = "extraLarge"
-	case "padding":
-		i.Spacing = spacing
-	default:
-		i.Spacing = ""
-	}
+	i.Spacing = normalize(spacing, spacingValues)
 }

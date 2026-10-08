@@ -3,7 +3,6 @@ package adaptive_card
 import (
 	"encoding/json"
 	"strconv"
-	"strings"
 )
 
 type (
@@ -55,6 +54,9 @@ func (c *Column) SetId(id string) {
 
 func (c *Column) Append(item Element) {
 	c.Items = append(c.Items, item)
+	if item.GetVersion() > c.GetVersion() {
+		c.version = item.GetVersion()
+	}
 }
 
 func (c *Column) SetSeparator(separator bool) {
@@ -62,51 +64,17 @@ func (c *Column) SetSeparator(separator bool) {
 }
 
 func (c *Column) SetSpacing(spacing string) {
-	spacing = strings.ToLower(spacing)
-	switch spacing {
-	case "default":
-		c.Spacing = spacing
-	case "none":
-		c.Spacing = spacing
-	case "small":
-		c.Spacing = spacing
-	case "medium":
-		c.Spacing = spacing
-	case "large":
-		c.Spacing = spacing
-	case "extralarge":
-		c.Spacing = "extraLarge"
-	case "padding":
-		c.Spacing = spacing
-	default:
-		c.Spacing = ""
-	}
+	c.Spacing = normalize(spacing, spacingValues)
 }
 
 func (c *Column) SetStyle(style string) {
-	style = strings.ToLower(style)
-	switch style {
-	case "default":
-		c.Style = style
-	case "emphasis":
-		c.Style = style
-	default:
-		c.Style = ""
-	}
+	c.Style = normalize(style, containerStyleValues)
 }
 
 func (c *Column) SetWidth(width string) {
-	width = strings.ToLower(width)
 	widthInt, err := strconv.Atoi(width)
 	if err != nil {
-		switch width {
-		case "auto":
-			c.width = width
-		case "stretch":
-			c.width = width
-		default:
-			c.width = ""
-		}
+		c.width = normalize(width, columnWidthValues)
 	} else {
 		if widthInt > 0 {
 			c.width = width
@@ -115,23 +83,6 @@ func (c *Column) SetWidth(width string) {
 		}
 	}
 }
-
-// func (c *Column) SetWidth(width string) {
-// 	width = strings.ToLower(width)
-// 	widthInt, err := strconv.Atoi(width)
-// 	if err != nil {
-// 		switch width {
-// 		case "auto":
-// 			c.Width = width
-// 		case "stretch":
-// 			c.Width = width
-// 		default:
-// 			c.Width = ""
-// 		}
-// 	} else {
-// 		c.Width = widthInt
-// 	}
-// }
 
 func (c *Column) MarshalJSON() ([]byte, error) {
 	var data []byte

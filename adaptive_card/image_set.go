@@ -1,14 +1,12 @@
 package adaptive_card
 
-import "strings"
-
 type (
 	ImageSet struct {
 		version             float64
 		Type                string   `json:"type"`
 		Id                  string   `json:"id,omitempty"`
 		Images              []*Image `json:"images"`
-		ImageSize           string   `json:"image_size,omitempty"`
+		ImageSize           string   `json:"imageSize,omitempty"`
 		Spacing             string   `json:"spacing,omitempty"`
 		Separator           bool     `json:"separator,omitempty"`
 		HorizontalAlignment string   `json:"horizontalAlignment,omitempty"`
@@ -48,43 +46,11 @@ func (is *ImageSet) Append(image *Image) {
 }
 
 func (is *ImageSet) SetImageSize(imageSize string) {
-	imageSize = strings.ToLower(imageSize)
-	switch imageSize {
-	case "auto":
-		is.ImageSize = imageSize
-	case "stretch":
-		is.ImageSize = imageSize
-	case "small":
-		is.ImageSize = imageSize
-	case "medium":
-		is.ImageSize = imageSize
-	case "large":
-		is.ImageSize = imageSize
-	default:
-		is.ImageSize = ""
-	}
+	is.ImageSize = normalize(imageSize, imageSizeValues)
 }
 
 func (is *ImageSet) SetSpacing(spacing string) {
-	spacing = strings.ToLower(spacing)
-	switch spacing {
-	case "default":
-		is.Spacing = spacing
-	case "none":
-		is.Spacing = spacing
-	case "small":
-		is.Spacing = spacing
-	case "medium":
-		is.Spacing = spacing
-	case "large":
-		is.Spacing = spacing
-	case "extralarge":
-		is.Spacing = "extraLarge"
-	case "padding":
-		is.Spacing = spacing
-	default:
-		is.Spacing = ""
-	}
+	is.Spacing = normalize(spacing, spacingValues)
 }
 
 func (is *ImageSet) SetSeparator(separator bool) {

@@ -145,7 +145,7 @@ func TestAdaptiveCardImageSetSetSpacing(t *testing.T) {
 	}
 }
 
-func TestAdaptiveCardImageSetSetSparator(t *testing.T) {
+func TestAdaptiveCardImageSetSetSeparator(t *testing.T) {
 	cases := []struct {
 		separator bool
 	}{

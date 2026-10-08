@@ -29,7 +29,7 @@ func TestAdaptiveCardImageGetVersion(t *testing.T) {
 		},
 	}
 	for i, c := range cases {
-		im := NewImage("https://exmaple.com/example.png")
+		im := NewImage("https://example.com/example.png")
 		if im.GetVersion() != c.version {
 			t.Errorf("[Case%d] Expected: %v, Result: %v", i+1, c.version, im.GetVersion())
 		}
@@ -86,7 +86,7 @@ func TestAdaptiveCardImageSetAltText(t *testing.T) {
 	}
 }
 
-func TestAdaptiveCardImageSetSparator(t *testing.T) {
+func TestAdaptiveCardImageSetSeparator(t *testing.T) {
 	cases := []struct {
 		separator bool
 	}{
@@ -117,6 +117,8 @@ func TestAdaptiveCardImageSetHorizontalAlignment(t *testing.T) {
 		{"CENTER", "center"},
 		{"right", "right"},
 		{"RIGHT", "right"},
+		{"", ""},
+		{"TestAlignment", ""},
 	}
 	for i, c := range cases {
 		im := NewImage("test string")

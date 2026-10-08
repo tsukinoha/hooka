@@ -111,7 +111,7 @@ func TestAdaptiveCardColumnSetSetSpacing(t *testing.T) {
 	}
 }
 
-func TestAdaptiveCardColumnSetSetSparator(t *testing.T) {
+func TestAdaptiveCardColumnSetSetSeparator(t *testing.T) {
 	cases := []struct {
 		separator bool
 	}{
@@ -142,6 +142,8 @@ func TestAdaptiveCardColumnSetSetHorizontalAlignment(t *testing.T) {
 		{"CENTER", "center"},
 		{"right", "right"},
 		{"RIGHT", "right"},
+		{"", ""},
+		{"TestAlignment", ""},
 	}
 	for i, c := range cases {
 		cs := NewColumnSet()

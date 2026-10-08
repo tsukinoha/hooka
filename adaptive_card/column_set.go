@@ -1,7 +1,5 @@
 package adaptive_card
 
-import "strings"
-
 type (
 	ColumnSet struct {
 		version             float64
@@ -47,25 +45,7 @@ func (cs *ColumnSet) Append(column *Column) {
 }
 
 func (cs *ColumnSet) SetSpacing(spacing string) {
-	spacing = strings.ToLower(spacing)
-	switch spacing {
-	case "default":
-		cs.Spacing = spacing
-	case "none":
-		cs.Spacing = spacing
-	case "small":
-		cs.Spacing = spacing
-	case "medium":
-		cs.Spacing = spacing
-	case "large":
-		cs.Spacing = spacing
-	case "extralarge":
-		cs.Spacing = "extraLarge"
-	case "padding":
-		cs.Spacing = spacing
-	default:
-		cs.Spacing = ""
-	}
+	cs.Spacing = normalize(spacing, spacingValues)
 }
 
 func (cs *ColumnSet) SetSeparator(separator bool) {
@@ -73,15 +53,5 @@ func (cs *ColumnSet) SetSeparator(separator bool) {
 }
 
 func (cs *ColumnSet) SetHorizontalAlignment(horizontalAlignment string) {
-	horizontalAlignment = strings.ToLower(horizontalAlignment)
-	switch horizontalAlignment {
-	case "left":
-		cs.HorizontalAlignment = horizontalAlignment
-	case "center":
-		cs.HorizontalAlignment = horizontalAlignment
-	case "right":
-		cs.HorizontalAlignment = horizontalAlignment
-	default:
-		cs.HorizontalAlignment = ""
-	}
+	cs.HorizontalAlignment = normalize(horizontalAlignment, horizontalAlignmentValues)
 }

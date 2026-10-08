@@ -1,6 +1,10 @@
 package adaptive_card
 
-import "testing"
+import (
+	"encoding/json"
+	"strings"
+	"testing"
+)
 
 func TestAdaptiveCardFactSetNewFactSet(t *testing.T) {
 	fs := NewFactSet()
@@ -88,7 +92,7 @@ func TestAdaptiveCardFactSetAppend(t *testing.T) {
 	}
 }
 
-func TestAdaptiveCardFactSetSetSparator(t *testing.T) {
+func TestAdaptiveCardFactSetSetSeparator(t *testing.T) {
 	cases := []struct {
 		separator bool
 	}{
@@ -136,5 +140,15 @@ func TestAdaptiveCardFactSetSetSpacing(t *testing.T) {
 		if fs.Spacing != c.expected {
 			t.Errorf("[Case%d] Expected: %v, Result: %v", i+1, c.expected, fs.Spacing)
 		}
+	}
+}
+
+func TestAdaptiveCardFactSetMarshalEmptyFacts(t *testing.T) {
+	data, err := json.Marshal(NewFactSet())
+	if err != nil {
+		t.Fatal(err)
+	}
+	if !strings.Contains(string(data), `"facts":[]`) {
+		t.Errorf("Expected: \"facts\":[], Result: %s", data)
 	}
 }

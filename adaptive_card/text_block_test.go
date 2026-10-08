@@ -100,7 +100,7 @@ func TestAdaptiveCardTextBlockSetSpacing(t *testing.T) {
 	}
 }
 
-func TestAdaptiveCardTextBlockSetSparator(t *testing.T) {
+func TestAdaptiveCardTextBlockSetSeparator(t *testing.T) {
 	cases := []struct {
 		separator bool
 	}{
@@ -131,6 +131,8 @@ func TestAdaptiveCardTextBlockSetHorizontalAlignment(t *testing.T) {
 		{"CENTER", "center"},
 		{"right", "right"},
 		{"RIGHT", "right"},
+		{"", ""},
+		{"TestAlignment", ""},
 	}
 	for i, c := range cases {
 		tb := NewTextBlock("test string")
